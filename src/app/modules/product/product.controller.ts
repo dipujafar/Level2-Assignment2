@@ -26,6 +26,49 @@ const createProduct = async (req: Request, res: Response) => {
   }
 };
 
+const getProducts = async (req: Request, res: Response) => {
+  try {
+    const { searchTerm } = req.query;
+
+    const result = await productService.getAllProductFromDB(searchTerm || '');
+
+    res.status(200).json({
+      success: true,
+      message: 'Products fetched successfully!',
+      data: result,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: 'Something went wrong',
+      error: error,
+    });
+  }
+};
+
+const getOneProducts = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params;
+    const result = await productService.getOneProductFromDB(productId);
+
+    res.status(200).json({
+      success: true,
+      message: 'Products fetched successfully!',
+      data: result,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: 'Something went wrong',
+      error: error,
+    });
+  }
+};
+
 export const productController = {
   createProduct,
+  getProducts,
+  getOneProducts,
 };
