@@ -6,6 +6,14 @@ const createOrderIntoDB = async (order: TOrder) => {
   return result;
 };
 
+const getOrderFromDB = async (queryValue: any) => {
+  const result = await OrderModel.find({
+    email: { $regex: queryValue, $options: 'i' },
+  });
+  return result;
+};
+
 export const orderService = {
   createOrderIntoDB,
+  getOrderFromDB,
 };
