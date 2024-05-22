@@ -21,7 +21,6 @@ const createProduct = async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: 'Something went wrong',
-      error: error,
     });
   }
 };
@@ -42,7 +41,6 @@ const getProducts = async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: 'Something went wrong',
-      error: error,
     });
   }
 };
@@ -62,7 +60,6 @@ const getOneProducts = async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: 'Something went wrong',
-      error: error,
     });
   }
 };
