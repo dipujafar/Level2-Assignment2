@@ -17,7 +17,6 @@ const createProduct = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       success: false,
       message: 'Something went wrong',
@@ -37,7 +36,6 @@ const getProducts = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       success: false,
       message: 'Something went wrong',
@@ -56,7 +54,25 @@ const getOneProducts = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error) {
-    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: 'Something went wrong',
+    });
+  }
+};
+
+const deleteProduct = async (req: Request, res: Response) => {
+  try {
+    const { productId } = req.params;
+
+    const result = await productService.deleteProductFromDB(productId);
+
+    res.status(200).json({
+      success: true,
+      message: 'Product deleted successfully!',
+      data: null,
+    });
+  } catch (error) {
     res.status(500).json({
       success: false,
       message: 'Something went wrong',
@@ -68,4 +84,5 @@ export const productController = {
   createProduct,
   getProducts,
   getOneProducts,
+  deleteProduct,
 };
