@@ -1,21 +1,25 @@
 import { Request, Response } from 'express';
 import { orderService } from './order.service';
+import orderValidationSchema from './order.validation';
 
 const createOrder = async (req: Request, res: Response) => {
   try {
     const orderData = req.body;
 
-    const result = await orderService.createOrderIntoDB(orderData);
+    //data validation vai zod
+    const zodParseData = orderValidationSchema.parse(orderData);
+
+    const result = await orderService.createOrderIntoDB(zodParseData);
 
     res.status(200).json({
       success: true,
       message: 'Order created successfully!',
       data: result,
     });
-  } catch (error) {
+  } catch (error: any) {
     res.status(500).json({
       success: false,
-      message: 'Something went wrong',
+      message: error?.issues[0]?.message || 'Something went wrong',
     });
   }
 };

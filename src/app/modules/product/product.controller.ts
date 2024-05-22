@@ -63,13 +63,18 @@ const getOneProducts = async (req: Request, res: Response) => {
 
 const updateProduct = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const { productId } = req.params;
     const updateProductData = req.body;
 
     const result = await productService.updateProductFromDB(
-      id,
+      productId,
       updateProductData,
     );
+    res.status(200).json({
+      success: true,
+      message: 'Product updated successfully!',
+      data: result,
+    });
   } catch (error) {
     res.status(500).json({
       success: false,
