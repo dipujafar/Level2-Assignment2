@@ -20,6 +20,14 @@ const getOneProductFromDB = async (id: string) => {
   return result;
 };
 
+const updateProductFromDB = async (id: string, updateData: TProduct) => {
+  const result = await ProductModel.updateOne(
+    { _id: new ObjectId(id) },
+    updateData,
+  );
+  return result;
+};
+
 const deleteProductFromDB = async (id: string) => {
   const result = await ProductModel.deleteOne({ _id: new ObjectId(id) });
   return result;
@@ -30,4 +38,5 @@ export const productService = {
   getAllProductFromDB,
   getOneProductFromDB,
   deleteProductFromDB,
+  updateProductFromDB,
 };

@@ -61,6 +61,23 @@ const getOneProducts = async (req: Request, res: Response) => {
   }
 };
 
+const updateProduct = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const updateProductData = req.body;
+
+    const result = await productService.updateProductFromDB(
+      id,
+      updateProductData,
+    );
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Something went wrong',
+    });
+  }
+};
+
 const deleteProduct = async (req: Request, res: Response) => {
   try {
     const { productId } = req.params;
@@ -85,4 +102,5 @@ export const productController = {
   getProducts,
   getOneProducts,
   deleteProduct,
+  updateProduct,
 };
